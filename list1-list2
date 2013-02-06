@@ -1,0 +1,25 @@
+eval "exec perl  -S $0 $*"
+        if $running_under_some_shell;
+
+#execlude list2 from list1
+
+open (LIST1,"$ARGV[0]") || die("$ARGV[0] open error!\n");
+open (LIST2,"$ARGV[1]") || die("$ARGV[1] open error!\n");
+open (OUTF,">$ARGV[2]") || die ("$ARGV[2] cant created!\n");
+
+$match=0;
+LABEL1: while($line1=<LIST1>){
+		$match=0;
+		while($line2=<LIST2>){
+			if ($line1 eq $line2){
+				 $match=1;
+			}
+		}
+		if($match==0){
+			print OUTF $line1;
+		}
+		seek(LIST2,0,0);
+}
+close (LIST1);
+close (LIST2);
+close (OUTF);
