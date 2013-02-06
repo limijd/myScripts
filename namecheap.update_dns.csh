@@ -1,5 +1,4 @@
 #!/bin/csh
 
-#need to provide dynamic dns password
-wget 'https://dynamicdns.park-your-domain.com/update?host=@&domain=limijd.me&password=$1' -o /dev/null
+wget "https://dynamicdns.park-your-domain.com/update?host=@&domain=limijd.me&password=$1" -O /dev/null -o /dev/null
 
