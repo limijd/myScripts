@@ -6,6 +6,8 @@ endif
 
 /home/limijd/dev-sandbox/github.scripts/check_internet_up.csh
 
-if $? then
+if $? then 
     echo "internet is bad, need reboot" | mail -s "limijd-mint-c60 is going to reboot" limijd@gmail.com
+    echo "Very bad! Internet connection is down! Need reboot!"
+    /sbin/reboot
 endif
