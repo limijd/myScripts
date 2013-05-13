@@ -98,7 +98,7 @@ dataQ = []
 def forever_read_devcie():
     factory = Factory()
 
-#skip first line
+    #skip first line
     ser.readline()
 
     while True:
@@ -131,24 +131,6 @@ def forever_read_devcie():
 t = threading.Thread(target=forever_read_devcie)
 t.daemon = True
 t.start()
-
-
-"""
-import time
-while True:
-    if len(dataQ)==0:
-        time.sleep(1)
-    locker.acquire()
-    for i in xrange(len(dataQ)).__reversed__():
-        obj = dataQ[i]
-        print obj.__repr__()
-        jobj = json.loads(obj.__repr__())
-        print jobj
-        time.sleep(1)
-        break
-    locker.release()
-
-"""
 
 def server_handler(clientsock,addr):
     tries = 0
