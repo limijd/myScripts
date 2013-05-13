@@ -7,7 +7,7 @@ Translate arduino serial data to JSON structurize data. So other applications
 can be developped based on the JSON data.
 
 DESCRITPION:
-    arduino_app_layer.py --output=<json_file> --serial_port=<port_device>
+    arduino_app_layer.py --port=<port> --serial_port=<port_device>
 
 By: limijd@gmail.com
 """
@@ -30,6 +30,8 @@ GFLAGS = gflags.FlagValues()
 gflags.DEFINE_boolean("help", False, "print help information", GFLAGS)
 gflags.DEFINE_boolean("debug", False, "print debug information", GFLAGS)
 gflags.DEFINE_boolean("verbose", False, "print verbose information", GFLAGS)
+gflags.DEFINE_integer("port", None, "Specify server port", flag_values=GFLAGS)
+gflags.DEFINE_string("serial_port", None, "Specify serial device ", flag_values=GFLAGS)
 
 #option parsing
 try:
@@ -43,13 +45,19 @@ if GFLAGS.help:
     print '%s\nOPTIONS:\n%s' % (__doc__, GFLAGS.MainModuleHelp())
     sys.exit(0)
 
+if not GFLAGS.port or not GFLAGS.serial_port:
+    print "You need to specify --port and --serial_port."
+    print ""
+    print '%s\nOPTIONS:\n%s' % (__doc__, GFLAGS.MainModuleHelp())
+    sys.exit(0)
+
 #==============================================================================
 # program body
 #==============================================================================
 
 import serial
 
-ser = serial.Serial("/dev/ttyACM0", 115200)
+ser = serial.Serial(GFLAGS.serial_port, 115200)
 
 oneObj = {}
 
@@ -171,7 +179,7 @@ def server_handler(clientsock,addr):
 
 if __name__=='__main__':
     HOST = 'localhost'
-    PORT = 21565
+    PORT = GFLAGS.port
     BUFSIZ = 10240
     ADDR = (HOST, PORT)
     serversock = socket(AF_INET, SOCK_STREAM)
@@ -181,10 +189,10 @@ if __name__=='__main__':
 
     clients = []
     while 1:
-        print 'waiting for connection...'
+        print 'Waiting for connection at port: %d ...' % PORT
         clientsock, addr = serversock.accept()
         clients.append(clientsock)
-        print '...connected from:', addr
+        print '...Connected from: %s' % addr.__repr__()
         thread.start_new_thread(server_handler, (clientsock, addr))
 
     print "Closing server."
