@@ -87,7 +87,7 @@ class TempHumiSensor:
             return obj
 
         try:
-            humi = float(parts[5])
+            humi = float(parts[5]) * 0.78
             humi = "%0.2f" % humi
             d = {"type":TempHumiSensor.__name__, "TempC":parts[1], "TempF":parts[3], "Humi":humi}
             d["utc_sec"]=time.time()
