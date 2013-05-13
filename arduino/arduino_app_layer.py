@@ -154,7 +154,6 @@ def server_handler(clientsock,addr):
             locker.acquire()
             for i in xrange(len(dataQ),0,-1):
                 obj = dataQ[i-1]
-                print "check %d" % (i-1)
                 jobj = json.loads(obj.__repr__())
                 if jobj["type"]==req_type:
                     print "Sending data: %s" % obj.__repr__()
