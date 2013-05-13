@@ -152,8 +152,9 @@ def server_handler(clientsock,addr):
 
         while True:
             locker.acquire()
-            for i in xrange(len(dataQ)).__reversed__():
-                obj = dataQ[i]
+            for i in xrange(len(dataQ),0,-1):
+                obj = dataQ[i-1]
+                print "check %d" % (i-1)
                 jobj = json.loads(obj.__repr__())
                 if jobj["type"]==req_type:
                     print "Sending data: %s" % obj.__repr__()
