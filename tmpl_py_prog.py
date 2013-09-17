@@ -12,6 +12,7 @@ By: limijd@gmail.com
 """
 
 import sys
+import os
 
 if __name__ != "__main__":
     sys.exit(0)
@@ -36,6 +37,8 @@ if GFLAGS.help:
     print '%s\nOPTIONS:\n%s' % (__doc__, GFLAGS.MainModuleHelp())
     sys.exit(0)
 
+_SELF_PATH_ = os.path.abspath(__file__)
+_SELF_DIR_ = os.path.dirname(_SELF_PATH_)
 #==============================================================================
 # program body
 #==============================================================================
