@@ -8,6 +8,6 @@ while [ $0 ]; do
         break
     else
         echo $RTN
-        sleep 2
+        sleep 20
     fi
 done
