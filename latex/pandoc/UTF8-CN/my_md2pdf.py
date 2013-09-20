@@ -12,6 +12,7 @@ DEPENDENCIES:
     1. pandoc
     2. pdflatex
     3. latexmk
+    4. strip_wikilink.py (my own script)
 
 By: limijd@gmail.com
 """
@@ -77,7 +78,7 @@ latex_tmpl = _SELF_DIR_ + "/latex.tmpl"
 head_tmpl = _SELF_DIR_ + "/head.tex"
 tail_tmpl = _SELF_DIR_ + "/tail.tex"
 
-cmd_md2tex = "cat %s |pandoc --template=%s -H %s -A %s -o %s"\
+cmd_md2tex = "cat %s | strip_wikilink.py |pandoc --template=%s -H %s -A %s -o %s"\
     % (mdfile, latex_tmpl, head_tmpl, tail_tmpl, tmpfn)
 cmd_tex2pdf = "latexmk -pdf -jobname=%s %s" % (GFLAGS.output, tmpfn)
 cmd_tex2pdf_clean =  "latexmk -pdf -jobname=%s -c %s" % (GFLAGS.output, tmpfn)
