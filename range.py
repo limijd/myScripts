@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python2
 #-*-coding: utf-8 -*-
 #pylint: disable=W0141, W0401, W0614
 
