@@ -26,7 +26,19 @@ def load_api_key():
     fp.close()
     return js["API_key"]
 
-home_loc = ("97229", "45.5", "-122.8")
+def load_home_loc():
+    fn = "~/.configs.secure/homeloc.json"
+    try:
+        fp = open(os.path.expanduser(fn), "r")
+    except:
+        logging.error("Failed to open config file which contains the home location: %s",  fn)
+        sys.exit(1)
+    js = json.load(fp)
+    fp.close()
+    return js["homeloc"]
+
+
+home_loc = load_home_loc()
 beach_pacific_city = ("Pacific City Beach", "45.21", "-123.97")
 beach_sunset = ("Sunset Beach", "46.10", "-123.94")
 beach_cannon = ("Cannon Beach", "45.89", "-123.96")
