@@ -42,9 +42,10 @@ home_loc = load_home_loc()
 beach_pacific_city = ("Pacific City Beach", "45.21", "-123.97")
 beach_sunset = ("Sunset Beach", "46.10", "-123.94")
 beach_cannon = ("Cannon Beach", "45.89", "-123.96")
-beaches = (beach_pacific_city, beach_sunset, beach_cannon)
+beach_newport = ("Newport", "44.62", "-124.06")
+beaches = (beach_pacific_city, beach_sunset, beach_cannon, beach_newport)
 
-GOOD_WIND = 9
+GOOD_WIND = 10
 GOOD_WIND_GUST = 14
 
 
@@ -156,7 +157,7 @@ def cli(args):
         #print("Unfortunately there is no nice weather in beach in coming weekend!")
         print("继续等待, 周末天气状况不佳！")
 
-    print("\n注：海边沙滩的良好天气状况是指风速小于9MPH, 极端风速小于14MPH, 并且为多云或者晴天的天气\n")
+    print("\n注：海边沙滩的良好天气状况是指风速小于%dMPH, 极端风速小于%dMPH, 并且为多云或者晴天的天气\n"%(GOOD_WIND, GOOD_WIND_GUST))
 
     for bc_name, data in beaches_data.items():
         owm_reader.showForcast(bc_name, data, args.weekend_only)
@@ -164,6 +165,9 @@ def cli(args):
     #home 
     data = owm_reader.getData(home_loc[1], home_loc[2], "current,hourly,minutely,alerts")
     owm_reader.showForcast(home_loc[0], data, args.weekend_only)
+
+    data = owm_reader.getData("45.6679", "-121.89636", "current,hourly,minutely,alerts")
+    owm_reader.showForcast("Cascade Rocks", data, args.weekend_only)
 
     return
 
